@@ -1,0 +1,15 @@
+<div class="container">
+    <h1 class="text-center mb-4">Multiplica 2 numeros</h1>
+    <form [formGroup]="formulario">
+        <div>
+            <label for="">Primer numero</label>
+            <input type="number" class="form-control" formControlName="numero1">
+        </div>
+        <div>
+            <label for="">Segundo numero</label>
+            <input type="number" class="form-control" formControlName="numero2">
+        </div>
+        <button type="submit" (click)="multNumeros()" class="btn btn-primary">Multiplicar</button>
+        <p>Resultado: {{resultado}}</p>
+    </form>
+</div>
