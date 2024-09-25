@@ -1,66 +1,98 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulario Cinepolis</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  
+
 </head>
-<body style="background-color: #003366;">
 
-  <div class="form-container">
-    <div class="form-title">Cinépolis</div>
-    
-   
+<body >
+  <div >
+    <div class="form-container">
+      <div class="form-title">Cinépolis</div>
 
-    <form>
-    
-      <div class="form-group">
-        <label for="name">Nombre</label>
-        <input type="text" class="form-control" id="name" name="nombre" placeholder="Ingrese su nombre">
-      </div>
 
-      <div class="form-group">
-        <label for="compradores">Cantidad de Compradores</label>
-        <input type="number" class="form-control" id="compradores" name="nCompradores" placeholder="Número de compradores">
-      </div>
 
-      <div class="form-group">
-        <label for="tarjeta">Tarjeta Cineco</label>
-        <div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio"  id="cinecoSi"- name="isCineco" value="si">
-            <label class="form-check-label" for="cinecoSi">Sí</label>
+      <form [formGroup]="formulario" action="">
+
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" id="name" name="nombre" placeholder="Ingrese su nombre" required
+            formControlName="nombre">
+        </div>
+
+        <div class="form-group">
+          <label for="compradores">Cantidad de Compradores</label>
+          <input type="number" class="form-control" id="compradores" name="nCompradores" required formControlName="nCompradores"
+            placeholder="Número de compradores">
+        </div>
+
+        <div class="form-group">
+          <label for="tarjeta">Tarjeta Cineco</label>
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="cinecoSi" name="isCineco" value="si" 
+                formControlName="isCineco">
+              <label class="form-check-label" for="cinecoSi">Sí</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="cinecoNo" name="isNotCineco" value="no"
+                >
+              <label class="form-check-label" for="cinecoNo">No</label>
+            </div>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio"  id="cinecoNo" name="isCineco" value="no">
-            <label class="form-check-label" for="cinecoNo">No</label>
+        </div>
+
+        <div class="form-group">
+          <label for="boletos">Cantidad de Boletos</label>
+          <input type="number" class="form-control" id="boletos" name="nBoletos" placeholder="Número de boletos"
+            formControlName="nBoletos" required>
+        </div>
+
+
+
+
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-custom" (click)="vende()" data-bs-toggle="modal"
+            data-bs-target="#resultModal">Procesar</button>
+          <button type="button" class="btn btn-light">Salir</button>
+        </div>
+      </form>
+    </div>
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel" style="color: black;">Resultado de la Compra</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" style="color:black ;" *ngIf="resultado">
+            <p>Nombre cliente: {{ resultado.nombre }}</p>
+            <p>Estas comprando un total de: {{resultado.numeroBoletos}} boletos</p>
+            <p>Total a pagar: {{ resultado.total }}</p>
+          </div>
+          <div class="modal-body" *ngIf="resultado2">
+            <img src="https://media.tenor.com/HKnvtwrIBlYAAAAi/x-no.gif" style="width: 25%; margin-left: 40%;">
+            <p style="color: red; text-align: center;">No puedes comprar mas de 7 boletos por persona</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="recargar" onclick="location.reload()">Cerrar</button>
           </div>
         </div>
       </div>
-
-      <div class="form-group">
-        <label for="boletos">Cantidad de Boletos</label>
-        <input type="number" class="form-control" id="boletos" name="nBoletos" placeholder="Número de boletos">
-      </div>
-
-      
-      <div class="form-group">
-        <label for="valor">Valor a Pagar</label>
-        <input type="text" class="form-control" id="valor" readonly placeholder="Total a pagar" >
-      </div>
-
-     
-      <div class="text-center">
-        <button type="submit" class="btn btn-custom" (click)="vende()">Procesar</button>
-        <button type="button" class="btn btn-light">Salir</button>
-      </div>
-    </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </div>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
